@@ -10,12 +10,10 @@ Apache Airflow is the industry-standard workflow orchestration platform. You def
 
 | Component | Version |
 |-----------|---------|
-| Apache Airflow | 2.10.3 |
+| Apache Airflow | 3.2.2 |
 | Executor | LocalExecutor (single-node, ideal for learning) |
 | Metadata DB | PostgreSQL 16 |
 | Python | 3.11+ |
-
-> **Upgrading to Airflow 3.x:** When ready, update the image tag in `docker-compose.yml` to `apache/airflow:3.0.0` (or latest). See [Milestone 17](#17-airflow-30-new-features) for what changes.
 
 ---
 
@@ -130,7 +128,7 @@ Operators are pre-built task templates. Each operator defines what a task *does*
 
 ### 4. TaskFlow API (Modern Approach)
 
-Introduced in Airflow 2.0. Preferred way to write DAGs in 2024+.
+Introduced in Airflow 2.0. Preferred way to write DAGs in 2026+.
 
 - [ ] Use `@task` decorator instead of `PythonOperator`
 - [ ] Use `@dag` decorator instead of the `DAG()` context manager
@@ -346,23 +344,23 @@ The executor decides *how* tasks are run.
 
 ---
 
-### 17. Airflow 3.0 New Features
+### 17. Airflow 3.x Features
 
-Airflow 3.0 is a major release with architectural improvements. Key changes:
+This project runs Airflow 3.2.2. These are the major changes from the 2.x era that you'll encounter while working through the earlier milestones:
 
-- [ ] **New UI** — completely rebuilt, faster, better DAG/task views
-- [ ] **Edge Executor** — a new lightweight executor for edge/embedded deployments
-- [ ] **Backfill API** — programmatic backfills via the REST API (no more CLI-only)
-- [ ] **Asset-centric UI** — lineage and asset status as a first-class concept
-- [ ] **Task execution API** — decoupled task execution for better remote execution support
-- [ ] **Auth improvements** — FAB replaced with a new auth manager interface
-- [ ] **Breaking changes from 2.x:**
-  - `execution_date` fully removed (use `logical_date`)
-  - `SubDagOperator` removed (use TaskGroups instead)
-  - Several deprecated operators removed
-  - Python 3.8 dropped; Python 3.9+ required
+- [ ] **New React UI** — completely rebuilt frontend; DAG/task views, Grid, Graph, and Calendar all reworked
+- [ ] **Asset-centric UI** — lineage and asset status are first-class concepts in the nav (replaces the old Datasets menu)
+- [ ] **Edge Executor** — lightweight executor for edge/embedded deployments alongside Local/Celery/Kubernetes
+- [ ] **Backfill API** — programmatic backfills via the REST API, no longer CLI-only
+- [ ] **Task execution API** — decoupled task execution; enables better remote execution and custom worker environments
+- [ ] **Auth manager interface** — FAB replaced; the default ships with a new auth manager. `AIRFLOW__API__AUTH_BACKENDS` is gone; auth is configured via `AIRFLOW__CORE__AUTH_MANAGER`
+- [ ] **Breaking changes from 2.x** (relevant if migrating existing DAGs):
+  - `execution_date` fully removed — use `logical_date` everywhere
+  - `SubDagOperator` removed — use `TaskGroup` instead
+  - Several long-deprecated operators and hooks removed (check release notes before migrating)
+  - Python 3.8 and 3.9 dropped; Python 3.10+ required
 
-**Migration:** Run `airflow migrate` after updating the image. Check the [Airflow 3.0 migration guide](https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html) for the full breaking changes list.
+**Reference:** [Airflow 3.x release notes](https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html) — check this when a 2.x example from the internet doesn't work as expected.
 
 ---
 

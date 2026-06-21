@@ -5,12 +5,15 @@ description = "Apache Airflow learning project — data engineering series"
 requires-python = ">=3.11"
 dependencies = []
 
+[tool.setuptools]
+packages = []
+
 [project.optional-dependencies]
 # Install locally for IDE support and running tests outside Docker
 dev = [
-    "apache-airflow[postgres,http]==2.10.3",
-    "apache-airflow-providers-common-sql==1.14.2",
-    "apache-airflow-providers-http==4.12.0",
+    "apache-airflow[postgres,http]==3.2.2",
+    "apache-airflow-providers-common-sql==1.31.0",
+    "apache-airflow-providers-http==6.0.2",
     "pytest>=8.0.0",
     "pytest-cov>=5.0.0",
 ]
